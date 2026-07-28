@@ -1,0 +1,30 @@
+---
+sidebar_position: 1
+---
+
+# SpecGate
+
+Learn about how I documented a CLI.
+
+## Building the docs site
+
+I chose to use Hextra for SpecGate's documentation for several reasons:
+
+1. The homepage has card components you can use to highlight product features. 
+2. The theme is lightweight and minimal, which keeps the focus on the tool itself rather than the website design. 
+
+Documenting the CLI exposed any inconsistencies between the CLI's behavior and my descriptions.
+
+## What worked
+
+Hextra is a Hugo theme, so building and deploying the site on Netlify was pretty straightforward. The theme makes code examples look good out of the box, and the CLI reference is scannable. 
+
+## Friction points
+
+The main challenge was adding screenshots of SpecGate's terminal output. I used carbon.sh to generate them, which produced nice-looking images but added a manual step to the workflow.
+
+Another limitation: there's no automated sync between the CLI and the docs. If I change a flag or an option, I have to manually update the documentation. In comparison, with the [Fstop](/docs/documenting/fstop.mdx) docs, I have a script that regenerates the OAS whenever the API code changes.
+
+--
+
+View the [SpecGate CLI docs](https://specgate-docs.netlify.app/) on Netlify. 
