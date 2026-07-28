@@ -2,46 +2,68 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# About this project
 
-Let's discover **Docusaurus in less than 5 minutes**.
+This is a project where I built an entire ecosystem of developer tools:
 
-## Getting Started
+* A CLI
+* An API
+* An SDK
 
-Get started by **creating a new site**.
+I built them because I wanted to understand how they work. 
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+I've used CLIs, APIs, and SDKs before, and I document APIs at work. But I didn't understand how they were built. How do you actually build a CLI? What does into designing an API? How exactly do teams generate SDKs? I wanted to know.
 
-### What you'll need
+## How it started
 
-- [Node.js](https://nodejs.org/en/download/) version 20.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+Last December, after building some AI agents to improve API documentation workflows, I thought, "What if there was a CLI tool that could validate and improve OAS files?"
 
-## Generate a new site
+That idea eventually became **SpecGate**, a Go-based CLI that enforces OpenAPI specification readiness. I'd never built a CLI before, so I had to learn Go and the Cobra CLI framework. 
 
-Generate a new Docusaurus site using the **classic template**.
+Once SpecGate was working, I realized that I didn't have a real an OAS file to test it against. So I built a Django REST API for a fictionality photography platform called **Fstop**.
 
-The classic template will automatically be added to your project after you run the command:
+While building it, I started asking different questions: How do you avoid overly “chatty” APIs? How should resources be structured so they’re easy to use and easy to document?
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+Then came another question. While working on SpecGate, I was also using OpenAI’s SDK to make API calls to GPT-5. This made me curious about SDks themselves and whether I could create one for the Fstop API.
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+I learned that SDKs are generated from OpenAPI specs and used **Speakeasy** to auto-generate a Python SDK. 
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+And suddenly I had a full ecosystem: an API, an OAS file, a CLI that validates it, and an SDK generated from it.
 
-## Start your site
+## Why this matters (to me) 😁
 
-Run the development server:
+As a technical writer, I spend most of my time focused on the documentation layer. That means thinking about what developers need to know, how to present information clearly, what's missing or confusing. But I don't usually have to understand how the systems were *built*. 
 
-```bash
-cd my-website
-npm run start
-```
+By building these tools myself, I had to think about everything *before* the documentation layer. I asked more questions, like:
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+* How do you design an API so it's easy to document? 
+* What work goes into building an SDK? 
+* How do you help developers seamlessly integrate their code with your platform? 
+* What's the benefit of building a deterministic CLI versus an LLM-driven CLI? 
+* What's the relationship between API docs and SDK docs? 
+* How do you design good UX experiences for CLIs?
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+By building all three tools, I had to understand these things.
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+This project is my way of getting hands on experience with these tools so I can understand them better, and ultimately, write better documentation for them.
+
+## What you'll find here
+
+**Building**: The projects I created and how I built them
+
+* SpecGate CLI: A CLI that enforces OpenAPI specification readiness
+* Fstop API: An API for a fictional photography platform 
+* Fstop Python SDK: The Python SDK for the Fstop platform 
+
+**Documenting**: How I approached documenting these tools
+
+* Feature guides: Real workflows with cURL and Python SDK examples 
+* API reference documentation: Complete endpoint documentation, built with Redoc
+
+**Reflecting**: Lessons learned and observations 
+
+* What I learned about API design 
+* Why SDKs and APIs need different docs
+* Why you should keep docs in sync with code
+
+
