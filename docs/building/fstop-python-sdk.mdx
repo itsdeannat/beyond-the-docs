@@ -1,0 +1,33 @@
+---
+sidebar_position: 3
+---
+
+# Fstop Python SDK
+
+The Fstop Python SDK is auto-generated from the OpenAPI specificuation using **Speakeasy**. It provides a Python-native way to interact with the Fstop API without dealing with HTTP requests. 
+
+## How I built it 
+
+Honestly...I didn't "build" the SDK in the traditional sense. Speakeasy built it for me. 
+
+I had no idea how SDK generation worked. After some research, I discovered that Speakeasy is a popular tool for generating SDKs from OpenAPI specs. I signed up, installed the CLI, made sure my OAS file was in good shape, ran the generator, and out came a fully functional Python SDK. 
+
+It was interesting to see the API endpoints translated into Python functions. The `/galleries` endpoint became `sdk.galleries.create_gallery()`. The structure and logic were all derived from my OAS spec. 
+
+### What I learned about SDKs
+
+Throughout this process, I realized that some companies do have dedicated SDK docs and some don't. Many companies rely on platforms like ReadMe that auto-generate code examples in multiple languages. Some companies provide reference docs that describe each method and its parameters. 
+
+For this project, I decidd not to write full SDK reference docs. Instead, I'm providing code examples showing how to use the Python SDK alongside `cURL` examples in the feature guides, plus a brief SDK overview. 
+
+I tested the SDK by writing a sample script that walked through a realistic workflow. It felt familiar, as I've used Asana's SDK and OpenAI's SDK before, so I knw what to expect. But at least I understand why the SDK existed and how it was created. 
+
+## Tech stack
+
+* Speakeasy (SDK generation)
+* Python 
+* OpenAPI specification
+
+## Check it out 
+
+* [Fstop Python SDK GitHub repo](https://github.com/itsdeannat/fstop-sdk-python)

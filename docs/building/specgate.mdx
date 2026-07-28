@@ -1,0 +1,32 @@
+---
+sidebar_position: 1
+---
+
+# SpecGate CLI
+
+SpecGate is a command-line tool for enforcing OpenAPI specification (OAS) readiness. It evaluates OAS files against a set of quality rules and surfaces errors and warnings before they reach production. SpecGate catches missing operation summaries, undocumented responses, placeholder server URLs, and other issues that make APIs harder to use.
+
+Rather than focusing on style, SpecGate focuses on completeness: is the spec complete enough to be used and documented?
+
+## How I built it
+
+I initially built a CLI called SmartDoc using Python and Typer. However, SmartDoc was LLM-driven, using OpenAI's GPT-5-mini model to analyze OAS files and surface missing documentation. While it worked, there were some limitations:
+
+* Responses differed in structure
+* LLMs don't retain memory of previous interactions. If a user runs SmartDoc multiple times on an OAS file, they may receive different results each time. This inconsistency would cause some problems in a production workflow.
+
+To address these issues, I rebuilt the project in Go using the Cobra CLI framework and redesigned it around deterministic rules. Instead of asking a model to analyze the spec, SpecGate uses specific checks to ensure that the spec is complete. Defining those rules took some work, but it resulted in predictable responses every time.
+
+Throughout the development process, I used GitHub Copilot as a coding assistant for debugging, refactoring, and speeding up implementation.
+
+The CLI does use an LLM for the `specgate advise` command, which generates suggestions for missing summaries and descriptions. 
+
+## Tech stack
+
+* Go
+* Cobra CLI framework 
+* OpenAI's GPT-5-mini model (for `advise` only)
+
+## Check it out
+
+* [Fstop GitHub repo](https://github.com/itsdeannat/fstop)

@@ -1,0 +1,41 @@
+---
+sidebar_position: 2
+---
+
+# Fstop
+
+Fstop is a photography platform with an API for developers who want to build apps to sell on the Fstop marketplace. The API provides access to several resources: galleries, bookings, clients, and projects. Every client belongs to a project, every project needs a client, all bookings need a project, and all galleries need bookings. 
+
+## How I built it 
+
+I chose the Django REST Framework because Python is the language I know best. But building the API forced me to think deeply about design decisions I'd never considered before.
+
+### API design decisions 
+
+The first challenge was thinking about cardinality and relationships between resources. How do resources connect? What's required? What's optional? I had to design filters so developers could find what they needed. For example, developers can filter projects by client or filter galleries by bookings. 
+
+Next I had to think about chattiness. If you return too little data to the user, they need to make multiple requests to get what they need. But if you return too much nested data, it becomes hard to parse. I had to think carefully about what endpoint should return to the user. 
+
+### Testing
+
+I tested the API with Postman, walking through some possible user workflows. I asked myself, "Where would a developer start? What would they do next?" If I ran into errors, I had to identify whether it was a user error or an actual bug that users could encounter. Doing this helped me think about whether the API was easy to use. 
+
+Throughout development, I used GitHub Copilot for debugging and when I got stuck, but the core design decisions and logic were mine.
+
+### Documentation 
+
+To document the API, I used `drf-spectacular` to generate and maintain an OpenAPI specification from the code. `drf-spectacular` handled generating the spec, but I had to develop the documentation itself. This included writing clear operation summaries and dscriptions. I had to decide how to explain the endpoints' purpose. 
+
+I also had to think carefully about examples. Each endpoint needed request and response examples that reflected user workflows.
+
+Writing documentation while building the API also changed how I thought about the design itself. If something was difficult to clearly explain, that meant the API design had to be reconsidered.
+
+## Tech Stack
+
+* Django REST Framework
+* drf-spectacular (generates OpenAPI spec)
+* Redocly (generates API reference docs from the spec)
+
+## Check it out 
+
+* [Fstop API GitHub repo](https://github.com/itsdeannat/fstop)
