@@ -111,16 +111,16 @@ const config = {
             items: [
               {
                 label: 'Building',
-                to: '/docs/building/',
+                to: '/docs/category/building',
               },
               {
                 label: 'Documenting',
-                to: '/docs/documenting/',
+                to: '/docs/category/documenting',
               },
               {
                 label: 'Reflecting',
-                to: '/docs/reflecting/',
-              },              
+                to: '/docs/category/reflecting',
+              },
             ],
           },
           {
