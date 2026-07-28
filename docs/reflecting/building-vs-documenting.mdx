@@ -1,0 +1,63 @@
+---
+sidebar_position: 1
+---
+
+# On building tools vs. documenting them
+
+I found that building an API, CLI, and SDK helped to deepen my understanding of them. After building the Fstop API, I have a better understanding of the decisions that can shape API design, how developers document their APIs, and what tradeoffs exist. 
+
+The same applies to CLIs. I've used CLI tools for many years, but I've never built one. Building SpecGate taught me that a CLI's UX depends on the logic and constraints in the code. For example, when I was designing SpecGate's output, I realized that the CLI's output was far too long and unhelpful for users. 
+
+```Bash
+ERRORS
+------
+
+Missing operation summaries for 1 operation(s):
+
+- GET /menu/{itemId}
+
+Missing error responses (4xx/5xx/default) for 4 operation(s):
+
+- POST /orders
+- GET /loyalty/{customerId}
+- POST /loyalty/{customerId}
+- GET /menu
+
+WARNINGS
+--------
+
+Missing operation descriptions for 3 operation(s):
+
+- GET /menu/{itemId}
+- GET /loyalty/{customerId}
+- POST /loyalty/{customerId}
+```
+
+So I redesigned the CLI's output; instead, it outputs a simple message with the number of errors and warnings:
+
+```bash
+specgate check oas.json 
+
+Loaded config from .specgate.yaml ✅
+
+oas.json - 2 errors, 2 warnings
+```
+
+And users can use the `--verbose` flag if they want deeper insight into the issues.
+
+```bash
+specgate check oas.json --verbose
+
+Loaded config from .specgate.yaml ✅
+
+oas.json - 2 errors, 2 warnings
+
+error     Missing operation summary                   GET /menu/{itemId}
+error     Missing error responses (4xx/5xx/default)   POST /orders
+warning   Missing operation description               GET /loyalty/{customerId}
+warning   Missing operation description               POST /loyalty/{customerId}
+
+Run with --strict to treat warnings as errors.
+```
+
+That insight about concise CLI output came from building it myself, not just documenting it.
