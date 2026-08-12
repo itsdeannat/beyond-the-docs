@@ -8,17 +8,15 @@ SpecGate was the first project I built as part of Beyond the Docs. I wanted to u
 
 SpecGate is a command-line tool for enforcing OpenAPI specification (OAS) readiness. It evaluates OAS files against a set of quality rules and surfaces errors and warnings before they reach production. SpecGate catches missing operation summaries, undocumented responses, placeholder server URLs, and other issues that can make APIs harder to use.
 
-Rather than focusing on style, SpecGate focuses on completeness: is the spec complete enough to be used and documented?
+Rather than focusing on style, SpecGate focuses on completeness: is the OAS complete enough to be used and documented?
 
 ## How I built it
 
-I initially built a CLI called [SmartDoc](https://github.com/itsdeannat/smartdoc) using Python and Typer. However, SmartDoc was LLM-driven, using OpenAI's GPT-5-mini model to analyze OAS files and surface missing documentation. 
+I initially built a CLI called [SmartDoc](https://github.com/itsdeannat/smartdoc) using Python and Typer. However, SmartDoc uses a large-language model (LLM) from OpenAI called GPT-5-mini to analyze OAS files and surface missing documentation. 
 
-While it worked, there were one limitation.: LLM responses varied in structure and content between runs. If a user ran SmartDoc multiple times on an OAS file, they may receive different results each time. Ideally, the results should be predictable and consistent.
+While it worked, there were one limitation: LLM responses varied in structure and content between runs. If a user runs SmartDoc multiple times on an OAS file, they may receive different results each time. Ideally, the results should be predictable and consistent.
 
-To address these issues, I rebuilt the project in Go using the Cobra CLI framework and redesigned it around deterministic rules. Instead of asking an LLM to analyze the spec, SpecGate uses specific checks to determine whether the spec is complete. Defining and testing those rules took some work, but it resulted in predictable responses every time. 
-
-Throughout the development process, I used GitHub Copilot as a coding assistant for debugging, refactoring, and speeding up implementation.
+To address these issues, I rebuilt the project in Go using the [Cobra CLI](https://cobra.dev/) framework and redesigned it around deterministic rules. Instead of using an LLM to analyze the OAS, SpecGate uses specific checks to determine whether the OAS is complete. Defining and testing those rules took some work, but it resulted in predictable responses every time. Throughout the development process, I used GitHub Copilot as a coding assistant for debugging, refactoring, and speeding up implementation.
 
 SpecGate does use an LLM for the `specgate advise` command, which generates suggestions for missing summaries and description. The responses do vary, but the CLI is only providing recommendations.
 
@@ -28,7 +26,7 @@ I learned a lot building SpecGate. 😁
 
 ### Deterministic tools may be harder to build, but produce predictable, consistent, and fast output
 
-Building SmartDoc was easier than SpecGate because the core functionality involved sending an OAS file to the OpenAPI API and processing the response. With SpecGate, I had to define the validation rules, implement thema, and test the CLI's logic, which took time. However, the hard work paid off: the results are delivered quickly, and the results are predictable.
+Building SmartDoc was easier than SpecGate because the core functionality involved sending an OAS file to GPT-5-mini and processing the response. With SpecGate, I had to define the validation rules, implement them, and test the CLI's logic, which took time. However, the hard work paid off: the results are delivered quickly, and the results are predictable.
 
 It also changed how I think about user trust. I'd rather have deterministic rules that make the decision and use an LLM where it adds value rather than solely relying on an LLM's judgment.
 
@@ -61,9 +59,9 @@ Missing operation descriptions for 3 operation(s):
 - POST /loyalty/{customerId}
 ```
 
-The output contained all the information a developer needed, but it wasn't easy to scan. Every issue had its own section, so even a small number of errors produced a lot of output. If a developer simply wanted to know whether their specification passed validation, they had to read through everything before getting the overall picture.
+The output contained all the information a developer needed, but it wasn't easy to scan. Every issue had its own section, so even a small number of errors produced a lot of output. If a developer simply wanted to know whether their OAS was ready, they had to read the entire output before getting the overall picture.
 
-That experience changed how I think about CLI design. A CLI's output is part of the user experience. Developers should be able to understand the overall health of their specification at a glance, then choose whether they want more detail.
+That experience changed how I think about CLI design. A CLI's output is part of the user experience. Developers should be able to understand the overall status of their OAS at a glance, then choose whether they want more detail.
 
 I redesigned SpecGate to display a concise summary by default and moved the detailed diagnostics behind the `--verbose` flag. The result is easier to scan while still making the full information available when it's needed.
 
