@@ -1,0 +1,66 @@
+---
+title: Story
+---
+
+# About this project
+
+This is a project where I built an ecosystem of developer tools:
+
+* A CLI
+* An API
+* An SDK
+
+And I built them because I wanted to understand how they work.
+
+I've used CLIs, APIs, and SDKs before, and I document APIs at work. But I realized there was a part of the process I didn't fully understand: how they are built. 
+
+So I decided to find out for myself, and Beyond the Docs was born.
+
+## How it started
+
+Last December, after building some AI agents to improve API documentation workflows, I had an idea.
+
+What if there was a CLI tool that could validate and improve OAS files?
+
+That idea eventually became SpecGate, a Go-based CLI that enforces OpenAPI specification readiness. I'd never built a CLI before, so I had to learn Go and the Cobra CLI framework along the way.
+
+Once SpecGate was working, I realized I didn't have a real OAS file to test it against. So I built a Django REST API for a fictional photography platform called Fstop and generated an OAS file to use with SpecGate.
+
+SpecGate has a command called `advise` that uses OpenAI's Python SDK to make API calls to GPT-5-mini. While working on this command, I began to wonder how SDKs work and whether I could create one for the Fstop API.
+
+I learned that SDKs can be generated from OpenAPI specifications, so I used **Speakeasy** to auto-generate a Python SDK from the Fstop API's OAS file.
+
+And suddenly, I had a full ecosystem: an API, an OAS file, a CLI that validates it, and an SDK generated from it.
+
+<center><img src="/img/relationship_diagram.jpg" alt="A diagram of the Beyond the Docs ecosystem" width="600"></img></center>
+
+<br />
+
+## Why I built it
+
+As a technical writer, I spend most of my time focused on the documentation layer. That means thinking about what users need to know, how to present information clearly, and what's missing or confusing.
+
+But I don't usually have to understand how the systems were built. 
+
+By building these tools myself, I had to step outside my usual area of expertise and think about the technical decisions that shape the developer experience. And in doing so, I had more questions about the relationship between development and documentation:
+
+* How do you design an API so it's easy to document?
+* What work goes into building an SDK?
+* How do you help developers integrate their code with your platform?
+* What's the benefit of building a deterministic CLI versus an LLM-driven CLI?
+* What's the relationship between API docs and SDK docs?
+* How do you design a good UX for a CLI?
+
+Building these three tools helped me get answers to these questions (or at least start thinking about them from a different perspective).
+
+This project is my way of getting hands-on experience with developer tools and workflows so I can bring that understanding back to my technical writing work.
+
+## What you'll find here
+
+* [**Building**](/docs/category/building): The developer tools I created and the decisions behind them
+* [**Documenting**](/docs/category/documenting): How I designed documentation workflows for these tools
+* [**Reflecting**](/docs/category/reflecting): Lessons learned about developer experience, tooling, and documentation
+
+
+
+
