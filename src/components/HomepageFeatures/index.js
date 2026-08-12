@@ -5,28 +5,28 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: 'Building',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/undraw_building-blocks_h5jb.svg').default,
     description: (
       <>
-        Creating developer tools and technical projects to learn systems from the inside out
+        The developer tools I built and the decisions behind them
       </>
     ),
   },
   {
     title: 'Documenting',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: require('@site/static/img/undraw_markdown-file_io4x.svg').default,
     description: (
       <>
-        How building tools informs better documentation and developer experience
+        How I designed documentation for the tools I built
       </>
     ),
   },
   {
     title: 'Reflecting',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    Svg: require('@site/static/img/undraw_in-thought_xa50.svg').default,
     description: (
       <>
-        Sharing lessons learned, implementation notes, and other thoughts on technical writing and DX
+        Lessons learned, implementation notes, and other thoughts on technical writing and DX
       </>
     ),
   },
