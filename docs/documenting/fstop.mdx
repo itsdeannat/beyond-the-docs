@@ -4,27 +4,28 @@ sidebar_position: 2
 
 # Fstop 
 
-Learn about how I documented a REST API and its Python SDK.
+Explore how I designed a documentation workflow for an API and SDK, including OpenAPI automation, reference documentation, and code examples.
 
-## Building the docs site
+## Designing the documentation workflow
 
 I chose Astro for Fstop's documentation because I was already familiar with it from my current website and a previous API project. 
 
+The challenge with Fstop was figuring out how to connect the API, OpenAPI specification (OAS), API reference documentation, and SDK. 
+
 ## The OAS sync pipeline
+I knew I wanted API reference docs for the Fstop API, so I had to figure out how to get the OAS file from the API codebase into the documentation repo.
 
-I knew that I wanted to have API reference docs for the Fstop API, so I had to think about how I would get the OAS file from the codebase to the docs repo. 
+To solve this, I wrote a Bash script that uses `drf-spectacular` to generate the OAS file from the API code and then copy the OAS file to the Fstop API docs repo. 
 
-To solve this problem, I wrote a Bash script that uses `drf-spectacular` to generate the OAS file from the code and then copy the OAS file to the Fstop API docs repo. 
+I created another Bash script in the API docs repo that uses Redocly to generate the API reference documentation from the copied spec. This gave me a repeatable workflow for updating the API reference docs whenever the API changed and reduced documentation drift. 
 
-I created another Bash script in the API docs repo that uses Redocly to build an HTML page from the spec. This means the API reference docs always have the latest endpoints, schemas, and responses. 
+## Keeping the SDK up to date 
 
-In summary, two Bash scripts save me a lot of time and ensure that the API docs are always up to date. 
+The Fstop Python SDK is generated from the Fstop OAS file, which raised an important workflow question. What happens when the API changes? How do I regenerate the SDK?
 
-## The SDK source of truth problem (and how I fixed it)
+I initially had the Speakeasy configuration file in both the Fstop API repo and the SDK repo. Maintaining the configuration in two places created unnecessary duplication and caused the repositories to fall out of sync. 
 
-Originally, I had Speakeasy configuration files in both the Fstop API and the docs repo. It created a huge mess. Things fell out of sync, SDK examples had wrong package names...a big mess. 
-
-So I decided to start fresh: I removed the Speakeasy configuration files from the API code repo and moved it to the SDK repo. Then I changed the config file to pull the OAS file from the API code repo:
+I simplified the workflow by keeping the Speakeasy configuration in the SDK repo and configuring it to pull the OAS directly from the API repo:
 
 ```yaml
 workflowVersion: 1.0.0
@@ -35,11 +36,16 @@ sources:
             - location: ../fstop/schema.yml # Grab the OAS from here
 ```
 
-Now there's one source of truth: the OAS file in the Fstop API repo, which is always the latest verison.
+This gives me a solid workflow to use when the API changes:
+
+<center><img src="/img/api_sdk_workflow.jpg" alt="A diagram of the Fstop API and SDK automation workflow" width="600"></img></center>
+
+Essentially, the OAS acts as the shared source of truth for the API's reference documentation and SDK.
+
 
 ## Why no separate SDK docs
 
-The Python SDK is auto-generated from the OpenAPI spec using Speakeasy. Rather than building separate SDK reference documentation, I included Python SDK examples alongside cURL examples in the API feature guides. This serves both audiences: HTTP users see cURL and SDK users see how to accomplish the same task using Python.
+The Python SDK is auto-generated from the OpenAPI spec using Speakeasy. Rather than creating separate SDK reference documentation, I included Python SDK examples alongside cURL examples in the API feature guides. This serves both audiences: HTTP users see cURL and SDK users see how to accomplish the same task using Python.
 
 Parameter descriptions for functions, return types, and other important information are all captured in docstrings. This means that developers using the SDK in their IDE get inline help without needing to view the docs. 
 
@@ -49,7 +55,7 @@ The docstrings in the SDK came from the OpenAPI spec. When you define operation 
 
 :::
 
-Here's some example documentation for the `create_gallery` function:
+For example, the `create_gallery` function includes the operation summary, description, and parameter documentation:
 
 ```Python
 def create_gallery(
@@ -77,11 +83,13 @@ def create_gallery(
 
 ## What worked
 
-Deploying my Astro site with Netlify was a smooth process. The OAS automation pipeline helped to reduce doc drift. 
+Building and deploying the Astro site with Netlify was straightfoward. The big win was creating the OAS automation pipeline. Automating the process of generating and moving the OAS reduced manual work and made it easier to keep the API reference documentation and the SDK in sync with the API.
 
 ## Friction points
 
-The main challenge was managing Speakeasy configuration across multiple repos. Splitting the config and pointing it to a single OAS source solved the problem, but it required rethinking the SDK generation workflow.
+The main challenge was managing the Speakeasy configuration file. Additionally, I still need to think of an easier way to pull SDK code examples from the SDK repo into the docs repo. 
+
+This experience reinforced the importance of having a clear source of truth for developer tooling. When the OpenAPI specification, API reference, and SDKs are all derived from the same source, they stay consistent as the API evolves.
 
 --
 
