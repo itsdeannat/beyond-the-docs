@@ -134,7 +134,7 @@ const config = {
                 href: '/story',
               },
               {
-                label: 'Website',
+                label: 'Personal Website',
                 href: 'https://deanna.dev',
               },
               // {
