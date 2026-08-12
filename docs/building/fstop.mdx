@@ -2,9 +2,9 @@
 sidebar_position: 2
 ---
 
-# Fstop
+# Fstop API
 
-Fstop is a photography platform with an API for developers who want to build apps to sell on the Fstop marketplace. The API provides access to several resources: galleries, bookings, clients, and projects. Every client belongs to a project, every project needs a client, all bookings need a project, and all galleries need bookings. 
+The Fstop API was the second project I built as part of Beyond the Docs. After building SpecGate, I needed a real OpenAPI specification to validate, so I built an API from scratch. It also gave me the opportunity to explore the design decisions that shape the developer experience before API documentation is written.
 
 ## How I built it 
 
@@ -12,23 +12,49 @@ I chose the Django REST Framework because Python is the language I know best. Bu
 
 ### API design decisions 
 
-The first challenge was thinking about cardinality and relationships between resources. How do resources connect? What's required? What's optional? I had to design filters so developers could find what they needed. For example, developers can filter projects by client or filter galleries by bookings. 
+The first challenge was thinking about relationships between resources. How do resources connect? What's required? What's optional? 
 
-Next I had to think about chattiness. If you return too little data to the user, they need to make multiple requests to get what they need. But if you return too much nested data, it becomes hard to parse. I had to think carefully about what endpoint should return to the user. 
+I also had to design filters so developers could find what they needed. For example, developers can filter projects by client or filter galleries by bookings. 
+
+Another consideration was chattiness. If you return too little data to the user, they need to make multiple requests to get what they need. But if you return too much nested data, it becomes hard to parse. I had to think carefully about what endpoint should return to the user. 
 
 ### Testing
 
-I tested the API with Postman, walking through some possible user workflows. I asked myself, "Where would a developer start? What would they do next?" If I ran into errors, I had to identify whether it was a user error or an actual bug that users could encounter. Doing this helped me think about whether the API was easy to use. 
+I tested the API with Postman by walking through some possible user workflows. I asked myself, "Where would a developer start? What would they do next?" If I ran into an error, I had to determine whether it was user errors or an actual bug that users could encounter. 
 
 Throughout development, I used GitHub Copilot for debugging and when I got stuck, but the core design decisions and logic were mine.
 
 ### Documentation 
 
-To document the API, I used `drf-spectacular` to generate and maintain an OpenAPI specification from the code. `drf-spectacular` handled generating the spec, but I had to develop the documentation itself. This included writing clear operation summaries and dscriptions. I had to decide how to explain the endpoints' purpose. 
+To document the API, I used `drf-spectacular` to generate and maintain an OpenAPI specification from the code. 
 
-I also had to think carefully about examples. Each endpoint needed request and response examples that reflected user workflows.
+`drf-spectacular` handled generating the spec, but I had to develop the documentation itself, including writing clear operation summaries and descriptions and deciding how to explain each endpoint's purpose.
 
-Writing documentation while building the API also changed how I thought about the design itself. If something was difficult to clearly explain, that meant the API design had to be reconsidered.
+I also had to think carefully about examples. Each endpoint needed request and response examples that helped users understand how to use the API.
+
+Writing documentation while building the API also changed how I thought about the design itself. If something was difficult to explain, that meant the API design had to be reconsidered.
+
+## What I learned
+
+### Good API documentation starts with good API design 
+
+OpenAPI specifications are the foundation for good API documentation. The quality of an OAS file influences everything that happens downstream:
+
+* Generating API reference documentation
+* Creating code examples
+* Generating SDKs and other developer tools
+
+If the API design is confusing, the documentation can explain it, but it won't necessarily fix the developer experience.
+
+### Designing API responses requires tradeoffs
+
+One of the decisions I spent the most time thinking about was how much data each endpoint should return. 
+
+While designing the API, I initially returned deeply nested data. A gallery response included the associated booking, the project, and the client attached to that project. Although this reduced the number of requests a developer might need to make, it also made the responses larger and harder to understand.
+
+I eventually simplified the responses. The galleries endpoint now focuses on the gallery itself rather than the booking, project, and client associated with it.
+
+Building the API taught me that API design is often a series of tradeoffs. Returning more data can reduce the number of requests a client needs to make, but it can also increase response size and make payloads more difficult to navigate. 
 
 ## Tech Stack
 
@@ -39,3 +65,5 @@ Writing documentation while building the API also changed how I thought about th
 ## Check it out 
 
 * [Fstop API GitHub repo](https://github.com/itsdeannat/fstop)
+
+Read more about the documentation workflow in the [Documenting > Fstop](/docs/documenting/fstop) section.
