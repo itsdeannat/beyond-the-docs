@@ -1,0 +1,33 @@
+
+## August 11, 2026 - 9:49 PM
+
+Need to mention why I condensed the output for SpecGate: giving users output options and control. Initially, the default output was a long wall of text. A user may not mind longer, detailed diagnostics on their local machine, but in a CI/CD workflow, they may want a scannable report. Or vice versa! At least now the user has the option to pick what they want.
+
+Could show example GitHub workflow file and sample UI run.
+
+Okay, I'm going to bed.
+
+## August 11, 2026 - 9:24 PM
+
+Thinking about this:
+
+```bash
+./specgate check example/oas.json 
+Loaded config from .specgate.yaml ✅
+
+example/oas.json - 9 errors, 3 warnings
+```
+
+It might be good to update the output to say something like `run with --verbose to see detailed report`. The summary is useful, but a developer may not know about the `--verbose` flag and think this is all there is. 
+
+Maybe something like:
+
+```bash
+./specgate check example/oas.json 
+Loaded config from .specgate.yaml ✅
+
+example/oas.json - 9 errors, 3 warnings
+
+Run with --verbose for a detailed report.
+```
+
