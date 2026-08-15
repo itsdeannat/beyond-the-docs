@@ -4,11 +4,11 @@ sidebar_position: 2
 
 # Fstop 
 
-Explore how I designed a documentation workflow for an API and SDK, including OpenAPI automation, reference documentation, and code examples.
+Documenting the Fstop API and SDK gave me the opportunity to think about the information developers need to get started with the API and successfully consume the API in their own code.
 
 ## Designing the documentation workflow
 
-I chose Astro for Fstop's documentation because I was already familiar with it from my current website and a previous API project. 
+I chose Astro's [Starlight](https://starlight.astro.build/) theme for Fstop's documentation because I was already familiar with it from my current website and a previous API project. 
 
 The challenge with Fstop was figuring out how to connect the API, OpenAPI specification (OAS), API reference documentation, and SDK. 
 
@@ -17,15 +17,15 @@ I knew I wanted API reference docs for the Fstop API, so I had to figure out how
 
 To solve this, I wrote a Bash script that uses `drf-spectacular` to generate the OAS file from the API code and then copy the OAS file to the Fstop API docs repo. 
 
-I created another Bash script in the API docs repo that uses Redocly to generate the API reference documentation from the copied spec. This gave me a repeatable workflow for updating the API reference docs whenever the API changed and reduced documentation drift. 
+I created another Bash script in the API docs repo that uses Redocly to generate the API reference documentation from the copied spec. This gave me a repeatable workflow for updating the API reference docs whenever the API changed and reduced documentation drift.
 
 ## Keeping the SDK up to date 
 
 The Fstop Python SDK is generated from the Fstop OAS file, which raised an important workflow question. What happens when the API changes? How do I regenerate the SDK?
 
-I initially had the Speakeasy configuration file in both the Fstop API repo and the SDK repo. Maintaining the configuration in two places created unnecessary duplication and caused the repositories to fall out of sync. 
+Speakeasy uses a `workflow.yaml` file that dictates how the Speakeasy CLI interacts with sources (OAS files) and targets (the SDK).
 
-I simplified the workflow by keeping the Speakeasy configuration in the SDK repo and configuring it to pull the OAS directly from the API repo:
+In the `workflow.yaml` file, I provided the location of the Fstop OAS file as a source:
 
 ```yaml
 workflowVersion: 1.0.0
@@ -33,8 +33,10 @@ speakeasyVersion: latest
 sources:
     Fstop:
         inputs:
-            - location: ../fstop/schema.yml # Grab the OAS from here
+            - location: ../fstop/schema.yml 
 ```
+
+Essentially, this says, "Grab the `schema.yml` file from the Fstop API repo and use that to generate the Python SDK.""
 
 This gives me a solid workflow to use when the API changes:
 
@@ -45,13 +47,13 @@ Essentially, the OAS acts as the shared source of truth for the API's reference 
 
 ## Why no separate SDK docs
 
-The Python SDK is auto-generated from the OpenAPI spec using Speakeasy. Rather than creating separate SDK reference documentation, I included Python SDK examples alongside cURL examples in the API feature guides. This serves both audiences: HTTP users see cURL and SDK users see how to accomplish the same task using Python.
+The Python SDK is auto-generated from the OpenAPI spec using Speakeasy. Rather than creating separate SDK reference documentation, I included Python SDK examples alongside cURL examples in the API feature guides. 
 
-Parameter descriptions for functions, return types, and other important information are all captured in docstrings. This means that developers using the SDK in their IDE get inline help without needing to view the docs. 
+Descriptions for functions, return types, and other important information are all captured in docstrings. This means that developers using the SDK in their IDE get inline help without needing to view the docs. 
 
-:::note
+:::note[About the docstrings]
 
-The docstrings in the SDK came from the OpenAPI spec. When you define operation summaries, descriptions, and field documentation in your API code, drf-spectacular includes that in the OAS. Speakeasy then reads the OAS and uses it to generate documented functions.
+The docstrings in the SDK came from the OAS file. When you define operation summaries, descriptions, and field documentation in your API code, drf-spectacular includes that in the OAS. Speakeasy then reads the OAS and uses it to generate the docstrings.
 
 :::
 
