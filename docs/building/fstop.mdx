@@ -4,35 +4,41 @@ sidebar_position: 2
 
 # Fstop API
 
-The Fstop API was the second project I built as part of Beyond the Docs. After building SpecGate, I needed a real OpenAPI specification to validate, so I built an API from scratch. It also gave me the opportunity to explore the design decisions that shape the developer experience before API documentation is written.
+The Fstop API was the second project I built as part of Beyond the Docs. After building SpecGate, I needed a real OpenAPI specification (OAS) to validate, so I built an API from scratch. It also gave me the opportunity to explore the design decisions that shape the developer experience before API documentation is written.
+
+## What is Fstop?
+
+Fstop is a fictional photography platform that gives photographers a place to manage their work and clients. Photographers can upload photos to galleries, create new galleries and projects, and manage their clients. 
+
+For Beyond the Docs, Fstop gives me an actual API to work with. The Fstop API provides the foundation for exploring how an OAS file can drive the documentation, SDKs, and other parts of the developer experience.
 
 ## How I built it 
 
 I chose the Django REST Framework because Python is the language I know best. But building the API forced me to think deeply about design decisions I'd never considered before.
 
+As with SpecGate, I used GitHub Copilot as a coding assistant for debugging, refactoring, and speeding up implementation.
+
 ### API design decisions 
 
-The first challenge was thinking about relationships between resources. How do resources connect? What's required? What's optional? 
+The first challenge was thinking about relationships between resources. How do resources connect? What fields are required? What's optional? 
 
 I also had to design filters so developers could find what they needed. For example, developers can filter projects by client or filter galleries by bookings. 
 
-Another consideration was chattiness. If you return too little data to the user, they need to make multiple requests to get what they need. But if you return too much nested data, it becomes hard to parse. I had to think carefully about what endpoint should return to the user. 
+Another consideration was API chattiness. If you return too little data to the user, they need to make multiple requests to get what they need. But if you return too much nested data, it becomes hard to parse. I had to think carefully about what each endpoint should return to the user. 
 
 ### Testing
 
-I tested the API with Postman by walking through some possible user workflows. I asked myself, "Where would a developer start? What would they do next?" If I ran into an error, I had to determine whether it was user errors or an actual bug that users could encounter. 
-
-Throughout development, I used GitHub Copilot for debugging and when I got stuck, but the core design decisions and logic were mine.
+I tested the API with Postman by walking through some possible user workflows. I asked myself, "Where would a developer start? What would they do next?" If I ran into an error, I had to determine whether it was user error or an actual bug that users could encounter. 
 
 ### Documentation 
 
-To document the API, I used `drf-spectacular` to generate and maintain an OpenAPI specification from the code. 
+To document the API, I used `drf-spectacular` to generate and maintain an OAS file from the code. 
 
-`drf-spectacular` handled generating the spec, but I had to develop the documentation itself, including writing clear operation summaries and descriptions and deciding how to explain each endpoint's purpose.
+`drf-spectacular` handled generating the OAS, but I had to develop the documentation itself, including writing clear operation summaries and descriptions and deciding how to explain each endpoint's purpose.
 
 I also had to think carefully about examples. Each endpoint needed request and response examples that helped users understand how to use the API.
 
-Writing documentation while building the API also changed how I thought about the design itself. If something was difficult to explain, that meant the API design had to be reconsidered.
+Writing documentation while building the API also changed how I thought about the design itself. If something was difficult to explain in the documentation, that meant the API design had to be reviewed.
 
 ## What I learned
 
@@ -50,17 +56,17 @@ If the API design is confusing, the documentation can explain it, but it won't n
 
 One of the decisions I spent the most time thinking about was how much data each endpoint should return. 
 
-While designing the API, I initially returned deeply nested data. A gallery response included the associated booking, the project, and the client attached to that project. Although this reduced the number of requests a developer might need to make, it also made the responses larger and harder to understand.
+While designing the API, I initially returned deeply nested data. A response from `GET /api/galleries/{id}` included the associated booking, the project, and the client attached to that project. Although this reduced the number of requests a developer might need to make, it also made the responses larger and harder to understand.
 
-I eventually simplified the responses. The galleries endpoint now focuses on the gallery itself rather than the booking, project, and client associated with it.
+I eventually simplified the responses. The `/galleries` endpoint now returns gallery details and the associated project only.
 
 Building the API taught me that API design is often a series of tradeoffs. Returning more data can reduce the number of requests a client needs to make, but it can also increase response size and make payloads more difficult to navigate. 
 
 ## Tech Stack
 
 * Django REST Framework
-* drf-spectacular (generates OpenAPI spec)
-* Redocly (generates API reference docs from the spec)
+* [drf-spectacular](https://drf-spectacular.readthedocs.io/en/latest/) to generate the OAS file
+* [Redocly CLI](https://redocly.com/docs/cli) to generate the reference docs from the OAS file
 
 ## Check it out 
 

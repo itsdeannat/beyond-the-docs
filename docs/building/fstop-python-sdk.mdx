@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Fstop Python SDK
 
-The Fstop Python SDK was the last project I built as part of Beyond the Docs. I wanted to understand how SDKs are generated, how they relate to OpenAPI specifications, and what role they play in the overall developer experience.
+The Fstop Python SDK was the last project I built as part of Beyond the Docs. I wanted to understand how SDKs are generated, how they relate to OpenAPI specifications (OAS), and what role they play in the overall developer experience.
 
 The Fstop Python SDK is auto-generated from the OpenAPI specification using [Speakeasy](https://www.speakeasy.com/product/sdk-generation).
 
@@ -12,9 +12,7 @@ The Fstop Python SDK is auto-generated from the OpenAPI specification using [Spe
 
 Honestly...I didn't "build" the SDK in the traditional sense. Speakeasy built it for me. 
 
-And that was the point!
-
-I had no idea how SDK generation worked. After some research, I discovered that Speakeasy is a popular tool for generating SDKs from OAS files. I installed the CLI, made sure my OAS file was in good shape, ran the generator, and out came a fully functional Python SDK.
+After I decided that I wanted to build an SDK for the Fstop API, I did some research and discovered that Speakeasy is a popular SDK generation tool. I installed the CLI, made sure my OAS file was in good shape, ran Speakeasy, and out came a fully functional Python SDK.
 
 It was interesting to watch the API transform into a Python library. Endpoints became Python methods, request and response models became Python classes, and operation summaries and descriptions became docstrings. Everything came from the OAS file.
 
@@ -22,7 +20,7 @@ It was interesting to watch the API transform into a Python library. Endpoints b
 
 ### A good SDK starts with a good OpenAPI specification
 
-Before this project, I mostly thought of an OpenAPI specification as something used to generate API reference documentation. Building the SDK changed that perspective.
+Before this project, I mostly thought of an OAS file as something used to generate API reference documentation. Building the SDK changed that perspective.
 
 I learned that the OAS becomes the source of truth for much more than documentation. Speakeasy used it to generate Python functions, request and response models, parameter descriptions, and docstrings. The SDK's quality is directly tied to the quality of the specification, so spending time writing clear operation summaries, descriptions, and examples is important.
 
@@ -36,9 +34,9 @@ Another thing I learned from building an SDK is that documentation isn't just fe
 
 ## Tech stack
 
-* Speakeasy (SDK generation)
+* Speakeasy for SDK generation
 * Python 
 
 ## Check it out 
 
-* [Fstop Python SDK GitHub repo](https://github.com/itsdeannat/fstop-sdk-python)
+* [Fstop Python SDK GitHub repo](https://github.com/itsdeannat/fstop-python-sdk)
