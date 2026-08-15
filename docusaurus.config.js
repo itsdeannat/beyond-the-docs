@@ -98,6 +98,7 @@ const config = {
             label: 'Ecosystem',
           },
           {to: '/lab-notes', label: 'Lab Notes', position: 'left'},
+          {to: '/faqs', label: 'FAQs', position: 'left'},
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/itsdeannat/beyond-the-docs',

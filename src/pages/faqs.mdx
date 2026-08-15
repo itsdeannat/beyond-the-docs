@@ -1,0 +1,74 @@
+# Frequent Asked Questions
+
+Here are answers to some questions you might have:
+
+## What is Beyond the Docs?
+
+Beyond the Docs is a project where I built an ecosystem of tools to understand how they work and how the technical decisions behind them shape the developer and documentation experience. 
+
+## What's included in the project?
+
+Three connected tools:
+
+* **SpecGate**: a Go-based CLI for enforcing OpenAPI specification (OAS) readiness
+* **Fstop API**: a Django REST API for a fictional photography platform
+* **Fstop Python SDK**: a Python SDK generated from the Fstop API's OAS file.
+
+## Is this production-ready?
+
+**No**. Beyond the Docs is a learning project, not a production system. The Fstop API is intended to be run locally for experimentation and has not undergone comprehensive testing. The SDK examples have also not been fully validated against a running API.
+
+**Please don't use the Fstop API or SDK in a production application**. 
+
+## Is Fstop a real photography platform?
+
+No. It's a fictional photography platform created for Beyond the Docs. The fictional platform gives the project a realistic API to work with. Photographers can create projects and galleries, upload photos, and manage clients. 
+
+## Is the Fstop API deployed?
+
+Not yet. It currently runs locally. Deployment and comprehensive testing is a future task. You can explore the API's source code and OAS file in GitHub.
+
+## Can I try the Fstop API?
+
+**Yes, locally**. You can download the project and run the API in your own development environment. 
+
+## Is the SDK production-ready?
+
+No. The SDK was generated from the Fstop API's OAS file and is primarily a project artifact for exploring SDK generation and documentation. It hasn't undergone testing or the typical validation you might expect from an SDK. 
+
+## Have the SDK code examples been tested?
+
+Not yet. Don't assume the examples will work as written. Validating the examples against the API is a future task.
+
+## Why isn't the Fstop API deployed or fully tested?
+
+Because I haven't learned how to do those things yet. Beyond the Docs is a learning project outside my usual technical writing work. I knew enough to build an API, generate the SDK, and connect the pieces. Deployment and comprehensive API testing are areas I need to learn about. 
+
+That's the point of the project. I'm not presenting Fstop as a production API. I'm documenting what I was able to build, what I learned, and what I still have to learn. 
+
+### What does SpecGate actually validate?
+
+It checks an OAS file for issues that could prevent it from being ready for downstream use.
+
+### Does SpecGate validate that an API works?
+
+No. SpecGate validates the OpenAPI specification, not the running API. A passing specification doesn't guarantee that the API behaves correctly.
+
+### Does SpecGate detect breaking changes?
+
+Not currently. That's outside its current capabilities.
+
+### Is Beyond the Docs finished?
+
+No. It's an evolving project. Some pieces are intentionally incomplete or represent future work.
+
+### What's on the roadmap?
+
+Lots of stuff. 
+
+* Deploy the Fstop API
+* Validate SDK code examples
+* Add test data 
+* Expand SpecGate checks or improve UX
+* Automate reference and SDK generation -> ***in progress***
+* Add CI/CD workflows -> ***in progress***
