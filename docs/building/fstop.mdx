@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Fstop API
 
-The Fstop API was the second project I built as part of Beyond the Docs. After building SpecGate, I needed a real OpenAPI specification (OAS) to validate, so I built an API from scratch. It also gave me the opportunity to explore the design decisions that shape the developer experience before API documentation is written.
+The Fstop API was the second project I built as part of Beyond the Docs. After building SpecGate, I needed a real OpenAPI specification (OAS) to validate, so I built an API from scratch. It also gave me the opportunity to explore the design decisions that shape the developer experience before the API documentation is written.
 
 ## What is Fstop?
 
@@ -20,7 +20,7 @@ As with SpecGate, I used GitHub Copilot as a coding assistant for debugging, ref
 
 ### API design decisions 
 
-The first challenge was thinking about relationships between resources. How do resources connect? What fields are required? What's optional? 
+The first challenge was thinking about relationships between resources. How many would I have? What fields are required for each resource? What's optional? 
 
 I also had to design filters so developers could find what they needed. For example, developers can filter projects by client or filter galleries by bookings. 
 
@@ -28,7 +28,7 @@ Another consideration was API chattiness. If you return too little data to the u
 
 ### Testing
 
-I tested the API with Postman by walking through some possible user workflows. I asked myself, "Where would a developer start? What would they do next?" If I ran into an error, I had to determine whether it was user error or an actual bug that users could encounter. 
+I tested the API using Postman by walking through some possible user workflows: creating a client, adding galleries, deleting projects, getting a client by ID. If I ran into errors while testing, I had to determine whether it was user error or an actual bug that users could encounter. 
 
 ### Documentation 
 
