@@ -51,6 +51,12 @@ const config = {
           // Remove this to remove the "edit this page" links.
           // editUrl:
           //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          versions: {
+            current: {
+              label: 'Forge 🚧',
+              banner: 'unreleased',
+            },
+          }
         },
         blog: {
           showReadingTime: true,
@@ -100,6 +106,10 @@ const config = {
           {to: '/lab-notes', label: 'Lab Notes', position: 'left'},
           {to: '/faqs', label: 'FAQs', position: 'left'},
           // {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
+          },
           {
             href: 'https://github.com/itsdeannat/beyond-the-docs',
             position: 'right',
