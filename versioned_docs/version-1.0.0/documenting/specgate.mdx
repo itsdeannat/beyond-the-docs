@@ -1,0 +1,38 @@
+---
+sidebar_position: 1
+---
+
+# SpecGate
+
+Documenting SpecGate gave me the opportunity to think about the documentation experience for a CLI, from installation and quickstart content to reference documentation.
+
+## Designing the Docs
+
+I organized the documentation around some questions developers might have, like:
+
+* How do I install it?
+* How do I get started?
+* What commands and options are available?
+* How could I use it in my workflow?
+
+I used [Hextra](https://imfing.github.io/hextra/docs/), a Hugo theme, to build the documentation site. Hextra has some card components that worked well for highlighting the CLI's capabiliies. The documentation design itself is lightweight, which keeps focus on the documentation itself. 
+
+## What worked
+
+The documentation structure worked well for the CLI's workflow. The installation and quickstart content give developers a path to running their first SpecGate check and the reference content provides more detailed information about commands and options.
+
+Additionally, Hextra's minimalistic design helps to keep focus on the documentation, allowing developing to quickly find the information they need. 
+
+## Friction points 
+
+The main challenge was adding screenshots of SpecGate's output. I had to think about how much or how little to show and which screenshots would add the most value to the homepage. 
+
+The other challenge was keeping the code and documentation in sync. If I changed a option in SpecGate, I had to manually update the documentation. There might be a way to keep the docs and code up to date, but I have to do some more research. 
+
+The Fstop documentation workflow works differently. The OAS file is generated from the code, so any time the code changes, I can regenerate the spec. The Fstop API reference documentation is generated from the OAS, so the reference docs will always be up to date.
+
+Comparing the two workflows made me think more carefully about the benefits of docs as code. With docs as code, documentation updates can be easier to manage, and the risk of documentation drifting out of sync with the product can be reduced.
+
+--
+
+View the [SpecGate CLI docs](https://specgate-docs.netlify.app/) on Netlify. 

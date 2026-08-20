@@ -1,0 +1,8 @@
+{
+  "label": "Building",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "The projects I created to understand how CLIs, APIs, and SDKs actually work."
+  }
+}
