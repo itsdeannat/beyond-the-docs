@@ -28,7 +28,7 @@ jobs:
             - name: Check website response
               run: |
                 for attempt in {1..10}; do
-                  if curl --fs http://127.0.0.1:8080/ > /dev/null; then
+                  if curl --silent --fail http://127.0.0.1:8080/ > /dev/null; then
                      echo "Website responded successfully."
                      exit 0
                   fi
